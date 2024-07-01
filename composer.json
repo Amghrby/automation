@@ -26,7 +26,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "AutomationServiceProvider"
+                "Amghrby\\Automation\\AutomationServiceProvider"
             ]
         }
     }
