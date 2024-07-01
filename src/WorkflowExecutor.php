@@ -66,7 +66,7 @@ class WorkflowExecutor
                 Log::info('Handler ' . json_encode($handler) . ' is instance of ActionHandlerInterface');
                 $params = $action->params;
                 // Assuming $model is not available in this context
-                $handler->handle($model, $params); // Pass $model if available
+                $handler->handle($model, $action); // Pass $model if available
                 Log::info('Action executed', [
                     'type' => $action->type,
                     'params' => $params,
