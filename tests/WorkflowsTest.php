@@ -10,7 +10,7 @@ use Orchestra\Testbench\TestCase;
 
 class WorkflowsTest extends TestCase
 {
-//    use RefreshDatabase;
+    use RefreshDatabase;
     public function setUp(): void
     {
         parent::setUp();
