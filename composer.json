@@ -1,0 +1,33 @@
+{
+    "name": "amghrby/automation",
+    "description": "A Laravel package to manage workflows",
+    "autoload": {
+        "psr-4": {
+            "Amghrby\\Automation\\": "src/",
+            "Amghrby\\Automation\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Abdelrahman Elmaghraby"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^8.1",
+        "illuminate/support": "^10.0|^11.0"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
+        "phpunit/phpunit": "^10.0|^11.0",
+        "orchestra/testbench": "^8.0|^9.0|^10.0|^11.0",
+        "laravel-zero/laravel-zero": "dev-master"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AutomationServiceProvider"
+            ]
+        }
+    }
+}

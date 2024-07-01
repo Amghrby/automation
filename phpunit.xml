@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.2/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         cacheDirectory=".phpunit.cache">
+
+  <testsuites>
+    <testsuite name="Application Test Suite">
+      <directory suffix="Test.php">./tests</directory>
+    </testsuite>
+  </testsuites>
+
+  <source>
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+  </source>
+  <php>
+    <server name="DB_CONNECTION" value="mysql"/>
+    <server name="DB_HOST" value="127.0.0.1"/> <!-- Adjust if MySQL server is on a different host -->
+    <server name="DB_PORT" value="3306"/>      <!-- Adjust if MySQL server is using a different port -->
+    <server name="DB_DATABASE" value="laravel"/>
+    <server name="DB_USERNAME" value="root"/>
+    <server name="DB_PASSWORD" value=""/>
+  </php>
+</phpunit>

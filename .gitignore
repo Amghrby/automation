@@ -1,0 +1,27 @@
+# PHPUnit cache and result files
+.phpunit.cache/
+.phpunit.result.cache
+
+# PHPUnit log files (if generated)
+*.log
+
+# Ignore other PHPUnit generated artifacts as needed
+# Example:
+# /coverage/
+# /junit.xml
+
+# Ignore vendor directory (optional if managed elsewhere)
+/vendor/
+
+# Ignore environment-specific files (e.g., .env for Laravel)
+.env
+
+# Ignore any sensitive or local configuration files
+config.local.php
+
+# Exclude IDE-specific files (optional but common)
+.idea/
+.vscode/
+
+# Exclude composer lock file
+/composer.lock
