@@ -24,6 +24,11 @@ class GenericObserver
         }
     }
 
+    public function retrieved(Model $model): void
+    {
+        $this->handle($model, 'retrieved');
+    }
+
     public function creating(Model $model): void
     {
         $this->handle($model, 'creating');
