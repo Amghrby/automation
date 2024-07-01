@@ -4,6 +4,7 @@ namespace Amghrby\Automation\Http\Controllers;
 
 use Amghrby\Automation\Models\Workflow;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class WorkflowController extends Controller
 {
