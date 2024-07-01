@@ -10,7 +10,6 @@ class WorkflowResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'type' => $this->type,
             'description' => $this->description,
             'triggers' => TriggerResource::collection($this->triggers),
             'actions' => ActionResource::collection($this->actions),

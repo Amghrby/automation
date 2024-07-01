@@ -5,22 +5,26 @@ namespace Amghrby\Automation\Observers;
 use Amghrby\Automation\WorkflowExecutor;
 use Illuminate\Database\Eloquent\Model;
 use Amghrby\Automation\Models\Workflow;
+use Illuminate\Support\Facades\Log;
 
 class GenericObserver
 {
 
     public function handle(Model $model, string $event): void
     {
+        Log::info("Observer" . get_class($model) . " " . $event);
         $workflows = Workflow::whereHas('triggers', function ($query) use ($model, $event) {
             $query->where('type', 'event')
                 ->where('params->event_name', $event)
                 ->where('params->model', get_class($model));
         })->get();
-
+        Log::info('Event' . $event . 'triggered ' . count($workflows) . ' workflows');
         $executor = new WorkflowExecutor();
 
         foreach ($workflows as $workflow) {
+            Log::info('Executing workflow '. $workflow->name);
             $executor->execute($workflow, $model);
+            Log::info('Workflow executed');
         }
     }
 
