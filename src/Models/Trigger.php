@@ -8,10 +8,6 @@ class Trigger extends Model
 {
     protected $fillable = ['workflow_id', 'type', 'params'];
 
-    protected $casts = [
-        'params' => 'array'
-    ];
-
     public function workflow()
     {
         return $this->belongsTo(Workflow::class);
