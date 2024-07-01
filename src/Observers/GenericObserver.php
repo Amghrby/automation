@@ -18,7 +18,7 @@ class GenericObserver
                 ->where('params->event_name', $event)
                 ->where('params->model', get_class($model));
         })->get();
-        Log::info('Event ' . $event . ' triggered ' . count($workflows) . ' workflows');
+        Log::info('Event ' . $event . ' triggered ' . count($workflows) . ' workflows' . json_encode($workflows));
         $executor = new WorkflowExecutor();
 
         foreach ($workflows as $workflow) {

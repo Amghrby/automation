@@ -35,6 +35,8 @@ class WorkflowExecutor
 
     protected function resolveHandler($entity, $type)
     {
+        Log::info('Resolving handler for '. $type. ': '. $entity->type);
+        Log::info('config automations '. json_encode(config("automations")));
         $handlerClass = config("automations.{$type}.{$entity->type}");
         Log::info('Resolving handler for '. $type. ': '. $entity->type.'with class '. $handlerClass);
         if (class_exists($handlerClass)) {
