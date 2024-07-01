@@ -8,7 +8,7 @@ class ConditionEvaluator
 {
     public function evaluate($conditions, $context)
     {
-        Log::info('Evaluating condition' . $context . json_encode($conditions));
+        Log::info('Evaluating condition' . json_encode($context) . json_encode($conditions));
         foreach ($conditions as $condition) {
             if (!$this->evaluateCondition($condition, $context)) {
                 Log::info('Condition failed', [

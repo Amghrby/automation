@@ -21,13 +21,14 @@ class WorkflowExecutor
     {
         Log::info('Executing workflow '. $workflow->name. ' with model ' . json_encode($model));
         foreach ($workflow->triggers as $trigger) {
+            Log::info('Trigger '. $trigger. ' type '. $trigger->type);
             $handler = $this->resolveHandler($trigger, 'triggers');
             Log::info('Trigger '. $trigger. ' handler '. json_encode($handler));
             if ($handler && $this->shouldExecuteTrigger($trigger)) {
                 Log::info('Trigger '. $trigger.'should execute');
                 $handler->handle(json_decode($trigger->params, true));
                 Log::info('Trigger executed');
-                $this->executeActions($workflow->actions);
+                $this->executeActions($workflow->actions, $model);
                 Log::info('Actions executed');
             }
         }
@@ -36,9 +37,10 @@ class WorkflowExecutor
     protected function resolveHandler($entity, $type)
     {
         Log::info('Resolving handler for '. $type. ': '. $entity->type);
-        Log::info('config automations '. json_encode(config("automations")));
-        $handlerClass = config("automations.{$type}.{$entity->type}");
-        Log::info('Resolving handler for '. $type. ': '. $entity->type.'with class '. $handlerClass);
+        Log::info('config("workflows.triggers") '. json_encode(config("workflows.{$type}.{$entity->type}")));
+        Log::info('config automations config("{$type}.{$entity->type}") '. json_encode(config("workflows.{$type}.{$entity->type}")));;
+        $handlerClass = config("workflows.{$type}.{$entity->type}");
+        Log::info('Resolving handler for '. $type. ': '. $entity->type.' with class '. $handlerClass);
         if (class_exists($handlerClass)) {
             Log::info('Handler '. $handlerClass.'exists');
             return new $handlerClass();
