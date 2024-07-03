@@ -11,7 +11,7 @@ class TriggerResource extends JsonResource
         return [
             'id' => $this->id,
             'type' => $this->type,
-            'params' => json_decode($this->params, true), // Convert JSON string to PHP array
+            'params' => $this->params, // Convert JSON string to PHP array
             // Add more attributes as needed
         ];
     }

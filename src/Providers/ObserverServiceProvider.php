@@ -13,7 +13,7 @@ class ObserverServiceProvider extends ServiceProvider
     {
         Event::listen('eloquent.*: *', function ($eventName, array $data) {
             $model = $data[0];
-            if ($model instanceof Model) {
+            if ($model instanceof Model && in_array(get_class($model), config('workflows.observed_models'))) {
                 $observer = app(GenericObserver::class);
                 $event = explode(': ', $eventName)[0];
 

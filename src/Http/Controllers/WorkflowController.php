@@ -49,9 +49,9 @@ class WorkflowController extends Controller
 
         foreach ($request->get('triggers', []) as $triggerData) {
             $trigger = $workflow->triggers()->create($triggerData);
-            foreach ($triggerData['conditions'] as $conditionData) {
-                $trigger->conditions()->create($conditionData);
-            }
+//            foreach ($triggerData['conditions'] as $conditionData) {
+//                $trigger->conditions()->create($conditionData);
+//            }
         }
 
         foreach ($request->get('actions', []) as $actionData) {

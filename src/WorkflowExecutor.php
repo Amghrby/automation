@@ -19,14 +19,11 @@ class WorkflowExecutor
 
     public function execute(Workflow $workflow, $model): void
     {
-        Log::info('Executing workflow '. $workflow->name. ' with model ' . json_encode($model));
         foreach ($workflow->triggers as $trigger) {
-            Log::info('Trigger '. $trigger. ' type '. $trigger->type);
             $handler = $this->resolveHandler($trigger, 'triggers');
-            Log::info('Trigger '. $trigger. ' handler '. json_encode($handler));
             if ($handler && $this->shouldExecuteTrigger($trigger)) {
                 Log::info('Trigger '. $trigger.'should execute');
-                $handler->handle(json_decode($trigger->params, true));
+                $handler->handle($trigger->params);
                 Log::info('Trigger executed');
                 $this->executeActions($workflow->actions, $model);
                 Log::info('Actions executed');
@@ -36,9 +33,6 @@ class WorkflowExecutor
 
     protected function resolveHandler($entity, $type)
     {
-        Log::info('Resolving handler for '. $type. ': '. $entity->type);
-        Log::info('config("workflows.triggers") '. json_encode(config("workflows.{$type}.{$entity->type}")));
-        Log::info('config automations config("{$type}.{$entity->type}") '. json_encode(config("workflows.{$type}.{$entity->type}")));;
         $handlerClass = config("workflows.{$type}.{$entity->type}");
         Log::info('Resolving handler for '. $type. ': '. $entity->type.' with class '. $handlerClass);
         if (class_exists($handlerClass)) {
@@ -58,18 +52,15 @@ class WorkflowExecutor
 
     protected function executeActions($actions, $model): void
     {
-        Log::info('Executing actions' . json_encode($actions). ' with model ' . json_encode($model));
         foreach ($actions as $action) {
             $handler = $this->resolveHandler($action, 'actions');
             Log::info('Action ' . $action . ' handler ' . json_encode($handler));
             if ($handler instanceof ActionHandlerInterface) {
                 Log::info('Handler ' . json_encode($handler) . ' is instance of ActionHandlerInterface');
-                $params = $action->params;
-                // Assuming $model is not available in this context
-                $handler->handle($model, $action); // Pass $model if available
+                $handler->handle($model, $action->params); // Pass $model if available
                 Log::info('Action executed', [
                     'type' => $action->type,
-                    'params' => $params,
+                    'params' => $action->params,
                 ]);
             }
         }
